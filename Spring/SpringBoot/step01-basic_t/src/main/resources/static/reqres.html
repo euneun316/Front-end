@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>reqres.html</title>
+</head>
+<body>
+
+	<h3>step01-basic 비동기 학습</h3>
+	<hr>
+	
+	
+	버튼 클릭시에 브라우저에 서버로부터 받아온 책들 정보 출력<br>
+	
+	<button onclick="loadDoc()">isbn이 2인 책이름만 출력</button>
+	<div id="nameView"></div>
+	
+	<script type="text/javascript">
+	
+		function loadDoc() {
+		  	const xhttp = new XMLHttpRequest(); //매우 중요
+			xhttp.onload = function() {   //매우 중요
+				//f12 로 브라우저의 개발자 tool 실행후 콘솔창에서 확인 가능한 명령어
+				//server 가 응답한 데이터는 순수 문자열로 받음
+				//key(name)로 value값 활용하기 위해서는 문자열 -> JSON 객체로 변환		
+				
+				var data = this.responseText; //매우중요
+				
+				console.log(data);
+				console.log(data[0]); // [
+				console.log(data[1]); // { 
+				console.log(data[2]); // " 
+				
+				data = JSON.parse(data);  //매우 중요
+				console.log(data[0]);
+				console.log(data[0].title);
+				
+				/* document : html 문서 자체를 제어하는 상위 객체
+					getEleme	ntById("tag의 고유한 id(key)") : id값으로 해당 tag(element) 검색
+					innerHTML : div와 p 라는 tag 내부에 html 형식을 추가 할수 있는 속성
+					innerText : div와 p 라는 tag 내부 일반 text 추가 할수 있는 속성 */
+			    document.getElementById("nameView").innerHTML = data[1].title;
+			}
+				
+			xhttp.open("GET", "books", true); //매우 중요
+		    xhttp.send();  //매우 중요
+		}
+	
+	</script>
+
+
+	<hr color="red">
+
+<!-- 	isbn <input type="text" id="isbn" value="1"><br> -->
+	age <input type="text" id="age" value="100"><br>
+
+	<button onclick="getReq()">get방식 요청</button><br>
+	<button onclick="postReq()">post방식 요청</button><br>
+	
+	<script type="text/javascript">
+		//client가 실시간 가변적으로 입력하는 data로
+		//web query string으로 구성해서 server에 전송
+		
+		//getReq()
+		function getReq(){
+			//client가 input tag에 입력한 데이터 read
+			let isbn = document.getElementById("isbn").value;
+			let age = document.getElementById("age").value;
+			
+	
+			const xhttp = new XMLHttpRequest(); 
+			xhttp.onload = function() {
+				var data = this.responseText;
+				console.log(data);
+			}
+			//http://ip:port/reqres.html ->
+			//http://ip:port/one
+			//http://ip:port/one?isbn=1&age=20
+			//encodeURIComponent()로 전송시 한글 인코딩 간혹 필요
+			xhttp.open("GET", "one?isbn="+isbn+"&age="+age, true); 
+		    xhttp.send();  
+		}
+		
+		//postReq()
+		function postReq(){
+			let isbn = document.getElementById("isbn").value;
+			let age = document.getElementById("age").value;
+			
+	
+			const xhttp = new XMLHttpRequest(); 
+			xhttp.onload = function() {
+				var data = this.responseText;
+				console.log(data);
+			}
+			
+			xhttp.open("POST", "one", true); 
+			//생략시 post로 데이터 전송이 불가 - 데이터만 전송이 안 되요!!!
+			//web query string값 서버에 전송시 필수필수필수!!
+			//https://www.w3schools.com/js/js_ajax_http_send.asp
+			xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			//query string 데이터가 반드시 parameter로 적용
+		    xhttp.send("isbn="+isbn+"&age="+age);  
+		}	
+	</script>
+	
+	<hr color="blue">
+	
+	isbn <input type="text" id="isbn" value="100"><br>
+	title <input type="text" id="title" value="sb100"><br>
+	author <input type="text" id="author" value="재석100"><br>
+	
+	<button onclick="newInsert()">book 추가</button>
+	
+	<script type="text/javascript">
+		function newInsert(){
+			let isbn = document.getElementById("isbn").value;
+			let title = document.getElementById("title").value;
+			let author = document.getElementById("author").value;
+			
+	
+			const xhttp = new XMLHttpRequest(); 
+			xhttp.onload = function() {
+				var data = this.responseText;
+				console.log(data);
+			}
+			
+			xhttp.open("POST", "one2", true); 
+			xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		    xhttp.send("isbn="+isbn+"&title="+title+"&author="+author);  
+		}
+	
+	</script>
+</body>
+</html>
+
+
+
+
