@@ -1,0 +1,98 @@
+
+1. @Controller
+	- controller 라는 spring 설정 애노테이션
+	- 보유 메소드가 url 요청 응답 처리 
+		@RequestMapping(url, get방식 또는 post방식 설정)
+		ModelAndView
+		return "redirect:file명";
+		return "forward:file명";
+		
+	- 요청과 응답 처리
+		응답시에 jsp로 응답
+			forward방식 또는 redirect방식
+			controller에서 jsp로 web page이동
+			
+			html -> controller -> jsp 순으로 실행
+		
+		
+2. Rest API를 적용한 spring boot 구조
+	- html -> controller 
+	       <- JSON 포멧으로 기본으로 응답
+	       
+	= 비동기 응답 권장 / ArrayList로 반환시 자동으로 JSON 포멧으로 변환되어 응답	       
+	       
+	@RestConroller
+		- @GetMapping(url정보) : get방식만 처리		
+		- @PostMapping(url정보) : post방식만 처리
+		- @DeleteMapping(url정보)
+		- @PutMapping(url정보)		
+		
+		메소드들 하나하나가 고유한 url을 보유한 요청 수락 및 응답을 수행하는 메소드
+		- 비동기 처리에 최적
+		- 별도의 jsp 등의 설정 없이 요청 받은 위치에 바로 응답해 버리는 구조
+		- 반환 타입		
+			String과 List(ArrayList) 
+				String - 단순 문자열로 반환
+				List - JSON 형태의 문자열로 반환
+					js 에서 데이터를 key로 value구분해서 사용
+	
+	html <-> controller(service와 dao 들과 통신)  : 현 대세
+	controller에서 응답되는 데이터가 다량인 경우 JSON 포멧으로 응답 대세
+
+
+			
+3. builder pattern
+	1. 용도
+		- 실시간 가변적인 객체 생성 가능하게 해주는 설계
+		- 멤버 변수들을 선별적으로 초기화 가능하게 해주는 독특한 구조 제공
+		- 장점
+			: 생성자 없이 자동 생성되는 메소드 호출로 값 초기화
+			: 코드가 굉장히 간결 / 변수가 추가 된다 하더라도 별도로 추가 개발할 생성자, 메소드 없음 
+		
+	2. @Builder
+		자동 생성되는 코드
+		선언된 클래스 내부에 안보이는 inner class 자동 생성
+		inner class 내부에 선언된 멤버 변수들 값을 초기화 가능한 메소드들이 자동 생성
+				
+
+4. spring 설정
+	1. xml 
+		- 기본
+		- 
+		
+	2. java 소스에 에노테이션
+		- 권장 추세
+			
+	3. 100% java 소스를 설정파일로 구성 가능
+		@Configuration
+
+
+
+5. 업계 동향
+	1. 하나의 웹서버가 웹(일반 pc)/앱(스마트 기기) 모두 다 공통 로직으로 서비스
+	2. rdbms는 하나
+	3. 화면 구성시 반응형 웹앱(옵션)
+	4. 동기 & 비동기 혼용해서 개발 권장
+	5. 반드시 브라우저로 서비스하는 로직으로 개발
+	...
+	
+
+		
+
+* 용어 정리 *
+	1. java bean
+		- DTO구조(VO구조)
+		- 멤버변수 / 기본생성자/ parameter생성자/setXxx/getXxx
+		
+	2. spring bean
+		- spring container가 lifecycle 관리하는 모든 객체의미
+		- 구조와 무관하게 spring 에서 객체 생성 및 관리하는 모든 것들 의미
+		- <bean> /@Bean / / @RestController
+			@Controller / @Service / @Repository ... : package 정보를 설정에 등록 			
+			
+			
+			
+			
+			
+			
+			

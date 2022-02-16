@@ -1,0 +1,41 @@
+
+
+1. 가정사항을 예시로 swagger doc 필요성 체감하기
+	A팀 과 B팀 협업
+	A팀에서 개발(*.java/*.html/*.jsp/*.js/*.css) -> B팀에게 전송
+	
+	1. 문서화해서 전달
+		1. 수작업으로 하나씩 문서화
+		2. 자동화해서 문서화
+			자동화 문서 개발 -> 문서화 후에 소스 편집후 자동으로 갱신 
+			
+	2. 구두로 각 기능의 메소드 호출 방식 전달
+	3. 전달 후에 인수인계 없이 알아서 사용하겠금 방치
+	...
+
+	
+2. spring 설정
+	1. xml 
+		- 기본
+		- 
+		
+	2. java 소스에 에노테이션
+		- 권장 추세
+			
+	3. 100% java 소스를 설정파일로 구성 가능
+		@Configuration
+	
+
+3. 용어 정리
+	1. java bean
+		- DTO구조(VO구조)
+		- 멤버변수 / 기본생성자/ parameter생성자/setXxx/getXxx
+		
+	2. spring bean
+		- spring container가 lifecycle 관리하는 모든 객체의미
+		- 구조와 무관하게 spring 에서 객체 생성 및 관리하는 모든 것들 의미
+		- <bean> /@Bean / / @RestController
+			@Controller / @Service / @Repository ... : package 정보를 설정에 등록 
+		
+	
+	
